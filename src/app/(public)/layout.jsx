@@ -15,11 +15,16 @@ import Particles from '@/components/magicui/particles'
 export default function PublicLayout({ children }) {
     const [loading, setLoading] = useState(true)
 
-
+    useEffect(() => {
+        AOS.init();
+        setTimeout(() => {
+            setLoading(false)
+        }, 5000);
+    }, [])
 
 
     return (
-        <div className='flex  flex-col  min-h-screen bg-[#0F0F0F]' >
+        <div className='flex  flex-col  min-h-screen bg-white ' >
 
 
 

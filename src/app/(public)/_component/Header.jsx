@@ -20,7 +20,7 @@ export default function Header() {
 
         //console.log('scrolled', scroll)
         //setScrolling(true)
-        if (scroll > 940) {
+        if (scroll > 50) {
             setScrolling(true)
         } else {
             setScrolling(false)
@@ -47,7 +47,7 @@ export default function Header() {
 
 
     return (
-        <div className={` ${scrolling && 'bg-[#041C33]'} flex flex-row items-center justify-between p-6`}>
+        <div className={`header-area ${scrolling && 'bg-[#041C33]'}  flex flex-row items-center justify-between p-6`}>
             <div className="header-logo">
                 <Link href="/">
                     <Image className="img-fluid" src={appLogo} alt="" height={40} />
@@ -69,7 +69,7 @@ export default function Header() {
 
 
 
-                    <div className={`flex gap-10 items-center font-bold`}>
+                    <div className={`flex gap-10 items-center text-white`}>
 
                         {
                             navItems.map((item, index) => {
@@ -94,11 +94,11 @@ export default function Header() {
             </div>
 
             <div className='flex flex-row items-center gap-x-4'>
-                <div className='px-4 py-2 bg-[#0495FF] rounded-full'>
+                <div className='px-8 py-4 bg-[#0495FF] rounded-full'>
                     <Link href={''}>Book Appointment</Link>
                 </div>
 
-                <AuthSelector name={false} classname={'dmmono text-[16px] hover:text-[#06D889]'} />
+                <AuthSelector name={false} classname={' hover:text-[#0495FF]'} />
             </div>
         </div>
     )

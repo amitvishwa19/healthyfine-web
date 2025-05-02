@@ -75,7 +75,7 @@ export function AuthSelector({ name = false, classname }) {
                         ) :
                         (
                             (
-                                <div className={`${classname}`}>
+                                <div className={`${classname} font-semibold hover:text-[#0495FF] `}>
 
                                     <Link href={'/login'}>
                                         Login

@@ -28,7 +28,7 @@ export default function SocialBar() {
     ]
 
     return (
-        <div className='hidden md:flex fixed bottom-16 left-4 z-40 ' data-aos="fade-in">
+        <div className=' fixed bottom-10 left-4 z-40 ' data-aos="fade-in">
             <div className='flex flex-col gap-6 items-center' data-aos="fade-right">
                 {
                     socialLinks.map((item, index) => {
@@ -44,7 +44,7 @@ export default function SocialBar() {
 
 
 
-                <div className='flex h-80 w-[1px] bg-white ' />
+                <div className='flex h-40 w-[1px] bg-white ' />
 
             </div>
         </div>
