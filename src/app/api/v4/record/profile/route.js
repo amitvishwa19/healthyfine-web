@@ -50,41 +50,81 @@ export async function POST(req, { params }) {
         const headersList = headers()
         const accessToken = headersList.get('Authorization')
         const payload = await req.json();
-        const { firstname, lastname, dob, gender, weight, height, waist, memberId } = payload
+        const { firstname, lastname, dob, gender, weight, height, waist, memberId, bloodGroup, contact, emrContact } = payload.data
 
         const { userId } = await decrypt(accessToken)
         user = await db.user.findUnique({ where: { id: userId } })
 
-        console.log('Update or add Records', payload)
+        console.log('Update or add Records', payload.data)
 
         if (!user) return NextResponse.json({ status: 401, message: 'Unauthorized access' })
 
 
 
         profile = await db.profile.update({
-            where: { userId: memberId },
+            where: { userId: userId },
             data: {
                 firstname,
                 lastname,
                 dob,
                 gender,
                 weight: parseFloat(weight),
-                height: height * 30.48,
+                height: parseFloat(height),
                 waist: parseFloat(waist),
+                bloodGroup,
+                contact,
+                emrcontact: emrContact
             }
         })
 
         if (profile) {
-            await db.user.update({
+            const user = await db.user.update({
                 where: { id: userId },
                 data: { profileStatus: true }
             })
         }
 
+        user = await db.user.findUnique({
+            where: { id: user.id },
+            include: {
+                roles: {
+                    include: {
+                        permissions: true
+                    }
+                },
+                servers: {
+                    orderBy: {
+                        createdAt: "asc",
+                    },
+                    include: {
+                        members: {
+                            include: {
+                                user: {
+                                    include: {
+                                        profile: true
+                                    }
+                                }
+                            },
+                            orderBy: {
+                                role: "asc",
+                            }
+                        },
+                        channels: {
+                            orderBy: {
+                                createdAt: "asc",
+                            },
+                        }
+                    },
+                },
+                profile: true
+            }
+        })
+
+
         //console.log('Update or add Records new route', profile)
 
 
-        return NextResponse.json({ status: 200, profile: profile })
+        return NextResponse.json({ status: 200, profile: profile, user: user })
     } catch (error) {
         console.log(error)
         return NextResponse.json({ status: 500, message: 'Internal Error', user: null })

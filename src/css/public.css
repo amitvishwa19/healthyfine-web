@@ -39,3 +39,16 @@
     transition: all .4s ease-out 0s;
     border-bottom: 1px solid rgba(255, 255, 255, .1)
 }
+
+.about-exp {
+    font-size: 32px;
+    color: #ffffff;
+    font-weight: 600;
+    font-family: "Unbounded";
+    width: 110px;
+    height: 110px;
+    border-radius: 55px;
+    background-color: #041c33;
+    line-height: 110px;
+    text-align: center;
+}

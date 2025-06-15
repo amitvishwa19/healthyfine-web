@@ -10,7 +10,7 @@ import { toast } from 'sonner'
 import { useAction } from '@/hooks/use-action'
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { useModal } from '@/hooks/useModal'
-import { useRouter } from 'next/navigation'
+import { redirect, useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 import { setLoading, setServer } from '@/redux/slices/org'
 import {
@@ -49,6 +49,7 @@ export function BoardCreator({ organization, children, sideOffset, boards, setBo
         onSuccess: (data) => {
             updateServer(data.server)
             updateLoading(false)
+            router.push(`/workspace/${data?.server?.id}/board/${data?.board?.id}`)
             toast.success(`New board ${data?.board.title} created`)
         },
         onError: (error) => {

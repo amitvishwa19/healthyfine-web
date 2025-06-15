@@ -29,14 +29,20 @@ export default function WorkspacePage() {
     const { data: session } = useSession()
     const { onOpen } = useModal()
 
+
+
     useEffect(() => {
         getServerData({ userId: session?.user?.userId })
-    }, [])
+        console.log('Workspace page session', session)
+    }, [session])
 
 
     const { execute: getServerData, fieldErrors } = useAction(getOrgData, {
+
         onSuccess: (data) => {
-            console.log(data)
+            console.log('getting org data', data)
+
+
             updateServer(data.server)
             updateServers(data.servers)
             setLoading(false)
@@ -55,7 +61,7 @@ export default function WorkspacePage() {
 
     useEffect(() => {
         if (server) {
-            router.push(`/workspace/${server.id}`)
+            //router.push(`/workspace/${server.id}`)
         } else {
             setShowCreateWorkspaceModal(true)
         }

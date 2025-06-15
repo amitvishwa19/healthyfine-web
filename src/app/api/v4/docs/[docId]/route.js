@@ -10,7 +10,7 @@ export async function DELETE(req, { params }) {
         const headersList = headers()
         const accessToken = headersList.get('Authorization')
         const { userId } = await decrypt(accessToken)
-        let document
+        let document, documents
 
         const user = await db.user.findUnique({
             where: { id: userId },
@@ -18,17 +18,28 @@ export async function DELETE(req, { params }) {
 
         if (user) {
             document = await db.document.delete({
-                where: { id: docId }
+                where: {
+                    id: docId,
+                    userId: userId
+                }
             })
 
         } else {
             NextResponse.json({ status: 401, message: 'Unauthorized access' })
         }
 
+        documents = await db.document.findMany(
+            {
+                where: {
+                    userId: userId,
+                    documentType: 'health-record'
+                }
+            })
+
         //console.log('User from access token', user)
 
 
-        return NextResponse.json(document)
+        return NextResponse.json({ status: 200, document, documents })
     } catch (error) {
         return NextResponse.json({ status: 500, message: 'Internal server Error' })
     }

@@ -16,12 +16,13 @@ export function OrgNavigation() {
     const router = useRouter();
     const { servers, updateServer, testFunction } = useContext(OrgContext)
 
+    console.log('@orgNavigation@servers', servers)
 
     useEffect(() => {
         !servers && router.push(`/`)
     }, [servers])
 
-
+    console.log(servers)
 
     const handleOnItemClick = (server) => {
         //console.log('Server select from OrgNavigation', server)

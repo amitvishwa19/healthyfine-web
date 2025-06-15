@@ -102,7 +102,9 @@ const handler = async (data) => {
             }
         })
 
+        //console.log('get_org_data-server', server)
 
+        //console.log('get_org_data-all-servers', servers)
 
 
     } catch (error) {

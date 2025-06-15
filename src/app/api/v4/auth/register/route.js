@@ -75,6 +75,11 @@ export async function POST(req) {
                     channels: {
                         create: [{ name: 'general', userId: user?.id }]
                     },
+                    Credit: {
+                        create: {
+                            value: 0
+                        }
+                    },
                     members: {
                         create: [
                             {

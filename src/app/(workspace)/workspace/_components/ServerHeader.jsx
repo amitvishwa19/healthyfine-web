@@ -31,12 +31,12 @@ export function ServerHeader({ server, role }) {
                 >
                     <span className='capatalize'>
                         {server?.name} Workspace
-                        <p className='text-xs'>{server?.id}</p>
+
                     </span>
                     <Settings className="h-4 w-4 ml-auto" />
                 </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent side='bottom' sideOffset={5} className="w-[250px] mt-1 text-xs font-medium text-slate-800 dark:text-neutral-200 space-y-[2px]" >
+            <DropdownMenuContent side='bottom' sideOffset={5} className="w-[250px] mt-1 text-x2l font-medium text-slate-800 dark:text-neutral-200 space-y-[2px]" >
                 {isModerator && (
                     <DropdownMenuItem
                         onClick={() => onOpen('inviteModal', { server })}

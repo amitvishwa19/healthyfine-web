@@ -13,9 +13,9 @@ import { useSession } from 'next-auth/react'
 import { useAction } from '@/hooks/use-action'
 import { getOrgData } from '../_action/server/get_org_data'
 import { OrgModalProvider } from '@/providers/OrgModalProvider'
+import { Inter } from "next/font/google";
 
-
-
+const inter = Inter({ subsets: ["latin"] });
 
 export default function OrgIdLayout({ children }) {
     const { orgId } = useParams()
@@ -28,7 +28,7 @@ export default function OrgIdLayout({ children }) {
 
     useEffect(() => {
         //setLoading(true)
-        //getServerData({ userId: session?.user?.userId })
+        getServerData({ userId: session?.user?.userId })
     }, [session])
 
     const { execute: getServerData, fieldErrors } = useAction(getOrgData, {
@@ -51,7 +51,7 @@ export default function OrgIdLayout({ children }) {
 
         <QueryProvider>
             <OrgModalProvider />
-            <div className='flex h-screen max-w-screen '>
+            <div className={`flex h-screen max-w-screen ${inter.className} `}>
                 <div className='h-screen  flex-grow hidden md:flex'>
                     <OrgNavigation />
                     <OrgSidebar server={server} userId={session?.user?.userId} />

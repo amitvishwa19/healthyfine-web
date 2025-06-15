@@ -1,9 +1,32 @@
 import { Github, Instagram, Linkedin, Youtube } from 'lucide-react'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, } from "@/components/ui/tooltip"
 
 export default function SocialBar() {
+    const [scrolling, setScrolling] = useState(false);
+
+    const handleScroll = (e) => {
+        const scroll = window.scrollY
+
+        //console.log('scrolled', scroll)
+        //setScrolling(true)
+        if (scroll > 50) {
+            setScrolling(true)
+        } else {
+            setScrolling(false)
+        }
+
+
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+
+
     const socialLinks = [
         {
             name: 'Github',
@@ -34,7 +57,7 @@ export default function SocialBar() {
                     socialLinks.map((item, index) => {
                         return (
                             <Link key={index} href={item.link} target='-' className='hover:-translate-y-2 transition duration-500 ease-in-out '>
-                                <item.icon size={22} className=' cursor-pointer text-[#8892B0] hover:text-[#64FFDA]' />
+                                <item.icon size={22} className={`cursor-pointer text-[#8892B0] hover:text-[#64FFDA]`} />
                             </Link>
                         )
                     })
@@ -44,7 +67,7 @@ export default function SocialBar() {
 
 
 
-                <div className='flex h-40 w-[1px] bg-white ' />
+                <div className={`flex h-40 w-[1px] ${scrolling ? 'bg-[#8892B0]' : 'bg-white'}`} />
 
             </div>
         </div>

@@ -50,6 +50,7 @@ model User {
   lastName      String?
   username      String? @unique
   email         String  @unique
+  phone         String?
   avatar        String?
   emailVerified Boolean @default(false)
   status        Boolean @default(false)
@@ -105,6 +106,10 @@ model User {
   allergies Allergy[]
   SYmptom   Symptom[]
   Records   Record[]
+
+  payer  Transaction[] @relation(name: "payer")
+  payee  Transaction[] @relation(name: "payee")
+  Credit Credit[]
 
   @@index([email])
 }
@@ -759,12 +764,14 @@ model Document {
   folder   Folder? @relation(fields: [folderId], references: [id])
   folderId String?
 
-  name    String  @db.Text
-  url     String
-  type    String
-  size    String
-  comment String? @db.Text
-  status  Boolean @default(true)
+  name         String  @db.Text
+  description  String?
+  url          String
+  type         String
+  documentType String?
+  size         String
+  comment      String? @db.Text
+  status       Boolean @default(true)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -872,6 +879,42 @@ model WorkflowExecutionLogs {
 model UserBalance {
   userId  String @id
   credits Int    @default(0)
+}
+
+model Transaction {
+  id String @id @default(cuid())
+
+  payer   User   @relation("payer", fields: [payerId], references: [id], onDelete: Cascade)
+  payerId String
+
+  payee   User   @relation("payee", fields: [payeeId], references: [id], onDelete: Cascade)
+  payeeId String
+
+  amount      Float
+  description String?
+  status      String?
+  orderId     String?
+  paymentId   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([payerId])
+  @@index([payeeId])
+}
+
+model Credit {
+  id String @id @default(cuid())
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  value Float
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
 }
 
 model Credential {

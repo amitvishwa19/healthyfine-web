@@ -16,7 +16,7 @@ export default function HomeBannerArea() {
 
                 <div className='bg-[#031B33] h-screen  w-[50%] flex flex-col items-center justify-center p-10' >
 
-                    <div data-aos="fade-right" >
+                    <div data-aos="fade-right flex flex-col" >
                         <h2 className='text-sky-600'>WISH YOUR HAPPY LIFE!</h2>
 
                         <h1 className='text-[48px] font-extrabold'>

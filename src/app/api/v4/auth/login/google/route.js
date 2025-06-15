@@ -35,7 +35,12 @@ export async function POST(req) {
                     provider,
                     displayName,
                     avatar,
-                    deviceToken
+                    deviceToken,
+                    Credit: {
+                        create: {
+                            value: 0
+                        }
+                    }
                 }
             })
 

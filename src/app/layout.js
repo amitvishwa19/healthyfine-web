@@ -9,11 +9,11 @@ import { AuthProvider } from "@/providers/AuthProvider";
 import { Providers } from "@/redux/provider";
 import { OrgProvider } from "@/providers/OrgProvider";
 import { Toaster } from "@/components/ui/sonner";
-
+import { Inter } from "next/font/google";
 
 
 const unbounded = Unbounded({ subsets: ["latin"] });
-
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: {
@@ -32,7 +32,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="">
-      <body className={`${unbounded.className} `} suppressHydrationWarning={true}>
+      <body className={`${inter.className} `} suppressHydrationWarning={true}>
         <SessionWrapper>
           <AppProvider>
             <ThemeProvider>

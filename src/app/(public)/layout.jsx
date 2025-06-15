@@ -11,20 +11,24 @@ import "@/css/public.css";
 import Header from './_component/Header'
 import Footer from './_component/Footer'
 import Particles from '@/components/magicui/particles'
+import { Unbounded, Inter, Poppins } from "next/font/google";
+
+
+const unbounded = Unbounded({ subsets: ["latin"] });
+const font = Unbounded({ subsets: ["latin"] });
+
 
 export default function PublicLayout({ children }) {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         AOS.init();
-        setTimeout(() => {
-            setLoading(false)
-        }, 5000);
+
     }, [])
 
 
     return (
-        <div className='flex  flex-col  min-h-screen bg-white ' >
+        <div className={`${font.className} flex  flex-col  min-h-screen bg-white`} >
 
 
 
