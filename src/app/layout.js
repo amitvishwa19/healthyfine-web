@@ -41,7 +41,6 @@ export default function RootLayout({ children }) {
                   <OrgProvider>
                     {/* <OrgModalProvider /> */}
                     {children}
-                    Changes
                   </OrgProvider>
                 </Providers>
               </AuthProvider>
